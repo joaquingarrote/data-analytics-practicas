@@ -31,7 +31,7 @@ fecha_registro DATE NOT NULL
 CREATE TABLE Productos(
 id_producto INT IDENTITY(1,1) PRIMARY KEY,
 nombre_producto VARCHAR(100) NOT NULL,
-id_categoria INT, FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
+id_categoria INT, CONSTRAINT FK_productos_categorias FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
 precio DECIMAL(10,2) NOT NULL,
 stock INT DEFAULT 0,
 activo BIT DEFAULT 1
@@ -39,8 +39,8 @@ activo BIT DEFAULT 1
 
 CREATE TABLE Ventas(
 id_venta INT IDENTITY(1,1) PRIMARY KEY,
-id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
-id_producto INT, FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
+id_cliente INT, CONSTRAINT FK_ventas_clientes FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+id_producto INT, CONSTRAINT FK_ventas_productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
 cantidad INT NOT NULL,
 precio_unitario DECIMAL(10,2) NOT NULL,
 fecha_venta DATE NOT NULL
