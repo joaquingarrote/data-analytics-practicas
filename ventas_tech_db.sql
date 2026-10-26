@@ -1,10 +1,3 @@
-----DROP----
-
-DROP TABLE IF EXISTS Ventas;
-DROP TABLE IF EXISTS Productos;
-DROP TABLE IF EXISTS Clientes;
-DROP TABLE IF EXISTS Categorias;
-
 
 ----CREATE----
 
@@ -12,6 +5,13 @@ DROP TABLE IF EXISTS Categorias;
 CREATE database Ventas_Tech_DB;
 
 USE Ventas_Tech_DB;
+
+----DROP----
+
+DROP TABLE IF EXISTS Ventas;
+DROP TABLE IF EXISTS Productos;
+DROP TABLE IF EXISTS Clientes;
+DROP TABLE IF EXISTS Categorias;
 
 --Creación tablas
 CREATE TABLE Categorias(
