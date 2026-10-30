@@ -1,6 +1,5 @@
 
 USE Ventas_Tech_DB;
-SELECT * FROM Ventas;
 
 -----------Consulta 1 — Resumen ejecutivo mensual ------------
 
