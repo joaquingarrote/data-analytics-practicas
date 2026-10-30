@@ -33,23 +33,30 @@ ORDER BY SUM(cantidad*precio_unitario) desc;
 
 -----------Consulta 4 — Meses por encima/por debajo del promedio-----------
 
-SELECT  MONTH(fecha_venta) AS mes,
-        SUM(cantidad*precio_unitario) AS total_facturado,
-CASE WHEN SUM(cantidad * precio_unitario) >
-          --SUBCONSULTA(Promedio de venta por mes)--
-          (SELECT AVG (total_mes) 
-          FROM (SELECT SUM(cantidad * precio_unitario) AS total_mes
-                FROM Ventas
-                GROUP BY MONTH(fecha_venta)) AS promedio)
-                THEN 'Por encima'
+SELECT
+    MONTH(fecha_venta) AS mes,
+    SUM(cantidad * precio_unitario) AS total_facturado,
 
-    WHEN SUM(cantidad * precio_unitario) >
-          (SELECT AVG (total_mes) 
-          FROM (SELECT SUM(cantidad * precio_unitario) AS total_mes
-                FROM Ventas
-                GROUP BY MONTH(fecha_venta)) AS promedio)
-                THEN 'Por debajo'
-        ELSE 'Igual al promedio'     
+    CASE
+        WHEN SUM(cantidad * precio_unitario) >
+            (SELECT AVG(total_mes)
+             FROM (
+                 SELECT SUM(cantidad * precio_unitario) AS total_mes
+                 FROM Ventas
+                 GROUP BY MONTH(fecha_venta)
+             ) AS promedio)
+        THEN 'Por encima'
+
+        WHEN SUM(cantidad * precio_unitario) <
+            (SELECT AVG(total_mes)
+             FROM (
+                 SELECT SUM(cantidad * precio_unitario) AS total_mes
+                 FROM Ventas
+                 GROUP BY MONTH(fecha_venta)
+             ) AS promedio)
+        THEN 'Por debajo'
+
+        ELSE 'Igual al promedio'
     END AS comparacion
 
 FROM Ventas
